@@ -64,5 +64,3 @@ The project is organized to be modular and professional:
 ## 📝 Author's Note
 
 The full academic report is available in the `docs/` folder (in Traditional Chinese). This repository, including the code structure and this README, serves as the English technical summary demonstrating my skills in deep learning implementation, computer vision, and full-stack system integration.
-
-*Code and project information can be found at: https://github.com/[Your-Username]/Renal-Aorta-3D-System*
