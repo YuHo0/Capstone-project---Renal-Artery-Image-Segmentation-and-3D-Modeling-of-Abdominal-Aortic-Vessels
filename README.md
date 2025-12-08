@@ -58,6 +58,13 @@ Since the full academic report (`docs/`) is in Traditional Chinese, this section
 ### Phase 3: 3D Reconstruction & Modeling
 * **Algorithm:** The system stacks the predicted 2D masks along the Z-axis (longitudinal axis) based on slice thickness. The boundary contours are then used to generate a **triangular mesh surface** (STL format) for solid modeling.
 
+## 🛠️ Key Libraries & Tools
+The system was built using the following core technologies:
+* **Interface:** PyQt5
+* **Deep Learning:** PyTorch (U-Net), Darknet (YOLOv7)
+* **Image Processing:** OpenCV, NumPy, SimpleITK
+* **3D Modeling:** NumPy-STL
+* 
 ## 📝 Author's Note
 
 The full academic report is available in the `docs/` folder (in Traditional Chinese). This repository, including the code structure and this README, serves as the English technical summary demonstrating my skills in deep learning implementation, computer vision, and full-stack system integration.
