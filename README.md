@@ -23,9 +23,9 @@ The core innovation lies in its hybrid pipeline, combining traditional image pro
 **(This screenshot demonstrates software engineering and user interface skills)**
 
 <p align="center">
-  <img src="/Renal-Aorta-3D-System/assets/GUI_SCREENSHOT_LINK1.png" alt="Graphical User Interface Screenshot" width="800"/>
-  <img src="/Renal-Aorta-3D-System/assets/GUI_SCREENSHOT_LINK2.png" alt="Graphical User Interface Screenshot" width="800"/>
-  <img src="/Renal-Aorta-3D-System/assets/GUI_SCREENSHOT_LINK3.png" alt="Graphical User Interface Screenshot" width="800"/>
+  <img src="/Renal-Aorta-3D-System/assets/GUI_SCREENSHOT_LINK1.png" alt="Graphical User Interface Screenshot" width="300"/>
+  <img src="/Renal-Aorta-3D-System/assets/GUI_SCREENSHOT_LINK2.png" alt="Graphical User Interface Screenshot" width="300"/>
+  <img src="/Renal-Aorta-3D-System/assets/GUI_SCREENSHOT_LINK3.png" alt="Graphical User Interface Screenshot" width="300"/>
   <br>
   <em>Figure 1: The main graphical user interface (GUI) developed with PyQt, allowing users to load DICOM series and execute the analysis pipeline.</em>
 </p>
@@ -34,8 +34,8 @@ The core innovation lies in its hybrid pipeline, combining traditional image pro
 **(This screenshot demonstrates the final clinical outcome and complex modeling)**
 
 <p align="center">
-  <img src="/Renal-Aorta-3D-System/assets/THREE_D_MODEL_LINK1.png" alt="Final 3D Aorta Model" width="800"/>
-  <img src="/Renal-Aorta-3D-System/assets/THREE_D_MODEL_LINK2.png" alt="Final 3D Aorta Model" width="800"/>
+  <img src="/Renal-Aorta-3D-System/assets/THREE_D_MODEL_LINK1.png" alt="Final 3D Aorta Model" width="300"/>
+  <img src="/Renal-Aorta-3D-System/assets/THREE_D_MODEL_LINK2.png" alt="Final 3D Aorta Model" width="300"/>
   <br>
   <em>Figure 2: Final 3D reconstruction of the abdominal aorta and renal arteries from segmented slices.</em>
 </p>
