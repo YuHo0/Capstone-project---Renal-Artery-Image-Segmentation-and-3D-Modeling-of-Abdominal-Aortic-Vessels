@@ -1,69 +1,95 @@
 # Automated Renal Artery Segmentation and 3D Modeling System 🩺
 
-An integrated software system for automated medical image analysis, featuring deep learning-based segmentation (U-Net), object detection (YOLOv4/v7), and 3D reconstruction of abdominal aortic vessels.
+An integrated software system for automated medical image analysis, designed to assist preoperative planning for Abdominal Aortic Aneurysm (AAA). This project features a hybrid pipeline combining **YOLOv7 object detection**, **U-Net semantic segmentation**, and **3D STL reconstruction**.
 
 ## 🏆 Project Highlights
 
 ![Python](https://img.shields.io/badge/Python-3.8%2B-blue?style=flat-square)
-![Deep Learning](https://img.shields.io/badge/Deep_Learning-YOLOv4%20%26%20v7%20%7C%20U--Net-orange?style=flat-square)
-![System Status](https://img.shields.io/badge/Status-Academic_Capstone_Project-lightgrey?style=flat-square)
-![Code Link](https://img.shields.io/badge/Code_Base-View_on_GitHub-success?style=flat-square)
+![YOLOv7](https://img.shields.io/badge/Model-YOLOv4%20%2F%20v7-orange?style=flat-square)
+![U-Net](https://img.shields.io/badge/Model-U--Net-yellow?style=flat-square)
+![Performance](https://img.shields.io/badge/mAP-99.1%25-success?style=flat-square)
+![Performance](https://img.shields.io/badge/IoU-0.932-success?style=flat-square)
 
 ## 📖 Executive Summary
 
-**"Bridging the gap between 2D medical imaging and 3D clinical assessment."**
+**"Enhancing AAA stent placement precision through Deep Learning."**
 
-This project presents an integrated software system designed to assist radiologists and surgeons in the diagnosis of **Abdominal Aortic Aneurysm (AAA)**. [cite_start]By processing raw Computed Tomography (CT) slices, the system automates the segmentation of the renal artery and abdominal aorta, ultimately reconstructing high-fidelity **3D STL models**[cite: 6].
+In Endovascular Aneurysm Repair (EVAR), precise localization of the renal arteries is critical to prevent stent misplacement. This system processes raw Computed Tomography (CT) slices to automate the extraction of the abdominal aorta and renal arteries, reconstructing them into high-fidelity **3D STL models**.
 
-[cite_start]The core innovation lies in its hybrid pipeline, combining traditional image processing (for anatomical landmark detection) with state-of-the-art deep learning models (**YOLOv4/v7** and **U-Net**) to achieve precise vascular extraction[cite: 4, 5].
+**Key Technical Achievements:**
+* **Optimization Strategy:** Implemented a **split-training strategy** for kidney detection, boosting mAP from ~77% (joint training) to **99.1%**.
+* **Preprocessing Pipeline:** Engineered a custom contrast enhancement pipeline (Gamma Correction + Otsu’s) that improved segmentation **Mean IoU from 0.759 to 0.932**.
+* **Clinical Value:** Reduces visual fatigue for radiologists by automating the ROI selection and 3D visualization process.
+
+## 📊 Performance Benchmarks
+
+Our research compared multiple architectures and training strategies. The final deployed model achieved state-of-the-art performance on our clinical dataset:
+
+| Task | Model | Strategy | Metric | Result |
+| :--- | :--- | :--- | :--- | :--- |
+| **Kidney Detection** | **YOLOv7** | **Split-Training (Right)** | **mAP@0.5** | **99.1%** |
+| Kidney Detection | YOLOv7 | Joint-Training | mAP@0.5 | 77.3% |
+| **Vessel Segmentation** | **U-Net** | **Custom Preprocessing** | **Mean IoU** | **0.932** |
+| Vessel Segmentation | U-Net | Raw Images | Mean IoU | 0.759 |
 
 ## 📸 Visual Demonstration
 
 ### 1. System GUI Interface
-**(This screenshot demonstrates software engineering and user interface skills)**
+*(The interface allows users to load DICOM series, visualize detection results, and export 3D models.)*
 
 <p align="center">
+
   <img src="/Renal-Aorta-3D-System/assets/GUI_SCREENSHOT_LINK1.png" alt="Graphical User Interface Screenshot" width="300"/>
+
   <img src="/Renal-Aorta-3D-System/assets/GUI_SCREENSHOT_LINK2.png" alt="Graphical User Interface Screenshot" width="300"/>
+
   <img src="/Renal-Aorta-3D-System/assets/GUI_SCREENSHOT_LINK3.png" alt="Graphical User Interface Screenshot" width="300"/>
   <br>
-  <em>Figure 1: The main graphical user interface (GUI) developed with PyQt, allowing users to load DICOM series and execute the analysis pipeline.</em>
+  <em>Figure 1: PyQt5-based GUI showing the automated workflow.</em>
 </p>
 
-### 2. Final 3D Reconstruction Result
-**(This screenshot demonstrates the final clinical outcome and complex modeling)**
+### 2. Segmentation & 3D Reconstruction
+*(From 2D CT Slices to 3D Hollow Vessel Model)*
 
 <p align="center">
+
   <img src="/Renal-Aorta-3D-System/assets/THREE_D_MODEL_LINK1.png" alt="Final 3D Aorta Model" width="400"/>
+
   <img src="/Renal-Aorta-3D-System/assets/THREE_D_MODEL_LINK2.jpg" alt="Final 3D Aorta Model" width="400"/>
   <br>
-  <em>Figure 2: Final 3D reconstruction of the abdominal aorta and renal arteries from segmented slices.</em>
+  <em>Figure 2: The final STL model generated by stacking voxel points and triangular mesh reconstruction.</em>
 </p>
-
 
 ## ⚙️ Technical Architecture & Methodology
 
-Since the full academic report (`docs/`) is in Traditional Chinese, this section provides a comprehensive English summary of the implemented algorithms for technical reviewers.
+The system follows a multi-stage pipeline designed to filter irrelevant data and focus computing power on the Region of Interest (ROI).
 
-### Phase 1: Intelligent Preprocessing & ROI Extraction
-* [cite_start]**Data Transformation:** Extracted CT slices from **DICOM format** and performed **linear transformations** to generate high-quality BMP format images.
-* [cite_start]**Enhancement:** Applied contrast adjustment and **Otsu's Binarization** to achieve a clear presentation of abdominal vascular structures[cite: 3].
-* [cite_start]**Slicing Filter (Kidney Localization):** Employed both **YOLOv4 and YOLOv7** object detection models to identify and select specific slices containing the aorta and renal arteries, effectively filtering out irrelevant data.
+### Phase 1: Intelligent Localization (The "Funnel" Approach)
+Instead of processing every slice, we filter data hierarchically:
+1.  **Spine Detection (YOLOv4):** Identifies the thoracic and lumbar vertebrae to establish a baseline anatomical position.
+2.  **Kidney Localization (YOLOv7):** Detects kidneys to further narrow down the ROI to the abdominal aorta section.
+    * *Innovation:* We utilized a **Split-Training Strategy**, training separate models for left and right kidneys to handle anatomical asymmetry, achieving **99.1% mAP**.
 
-### Phase 2: Semantic Segmentation (U-Net)
-* **Purpose:** Precise, pixel-level extraction of vessel contours.
-* [cite_start]**Architecture:** Custom **U-Net** Convolutional Neural Network[cite: 5].
-* [cite_start]**Inference:** The model predicts binary masks for the **abdominal aorta** and the critical **connection between the aorta and renal arteries** on ROI-cropped images[cite: 5].
+### Phase 2: Advanced Preprocessing
+To address the low contrast of soft tissues in CT scans:
+* **Linear Transformation:** DICOM to BMP conversion (Window Level: 300, Window Width: 600).
+* **Contrast Enhancement:** Applied **Gamma Correction (γ=0.1)** followed by **Otsu’s Binarization**.
+* *Impact:* This step was crucial in separating the vascular structure from the background, directly contributing to the **17% increase in IoU**.
 
-### Phase 3: 3D Reconstruction & Modeling
-* [cite_start]**Algorithm:** The system stacks the predicted 2D masks along the Z-axis (longitudinal axis) based on slice thickness to create voxel points[cite: 6].
-* [cite_start]**Mesh Generation:** Algorithms convert the voxel data into a **triangular mesh surface** to construct a standard **STL format 3D model**, ready for preoperative evaluation[cite: 6].
+### Phase 3: Semantic Segmentation (U-Net)
+* **Target:** Pixel-level segmentation of the aorta and the aorta-renal connection points.
+* **Method:** A U-Net architecture trained on the preprocessed ROI slices creates binary masks of the blood flow lumen.
+
+### Phase 4: 3D Reconstruction
+* **Morphological Processing:** Applied **Erosion** to simulate the hollow structure of actual blood vessels.
+* **Voxelization:** Stacked 2D masks along the Z-axis, adjusting for the 5mm slice thickness (Z-axis expansion).
+* **Mesh Generation:** Constructed a triangular mesh surface to export the final **STL model**.
 
 ## 🛠️ Key Libraries & Tools
-The system was built using the following core technologies:
-* **Interface:** PyQt5
-* **Deep Learning:** PyTorch (U-Net), Darknet (**YOLOv4 & YOLOv7**)
-* **Image Processing:** OpenCV, NumPy, SimpleITK
+* **UI Framework:** PyQt5
+* **Deep Learning:** PyTorch, Darknet (YOLOv4/v7 integration)
+* **Computer Vision:** OpenCV (Edge detection, Morphology), SimpleITK (DICOM handling)
+* **Data Processing:** NumPy, Pandas
 * **3D Modeling:** NumPy-STL
 
 ## 📝 Author's Note
