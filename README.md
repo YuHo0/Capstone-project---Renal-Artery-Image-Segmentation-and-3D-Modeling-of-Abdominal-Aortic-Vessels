@@ -1,4 +1,4 @@
-# Automated Renal Artery Segmentation and 3D Modeling System 🩺
+# Renal Artery Image Segmentation and 3D Modeling of Abdominal Aortic Vessels 🩺
 
 An integrated software system for automated medical image analysis, designed to assist preoperative planning for Abdominal Aortic Aneurysm (AAA). This project features a hybrid pipeline combining **YOLOv7 object detection**, **U-Net semantic segmentation**, and **3D STL reconstruction**.
 
