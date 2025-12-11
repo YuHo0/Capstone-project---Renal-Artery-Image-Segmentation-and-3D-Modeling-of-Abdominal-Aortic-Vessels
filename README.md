@@ -94,4 +94,4 @@ To address the low contrast of soft tissues in CT scans:
 
 ## 📝 Author's Note
 
-The full academic report is available in the `docs/` folder (in Traditional Chinese). This repository, including the code structure and this README, serves as the English technical summary demonstrating my skills in deep learning implementation, computer vision, and full-stack system integration.
+The full academic report is available in the `docs/` folder (in Traditional Chinese). A brief English summary is also included. This repository, including the code structure and this README, serves as the English technical summary demonstrating my skills in deep learning implementation, computer vision, and full-stack system integration.
